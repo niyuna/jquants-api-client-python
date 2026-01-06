@@ -1,0 +1,251 @@
+# J-Quants API 数据持久化配置
+# 需要持久化的API配置
+
+apis:
+  # ========== Free plan or higher ==========
+  
+  # 股票日行情
+  daily_quotes:
+    enabled: true
+    method: "get_price_range"
+    is_range: true
+    output_dir: "daily_quotes"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "free"
+    
+  # 上市公司信息
+  listed_info:
+    enabled: true
+    method: "get_listed_info"
+    is_range: false
+    output_dir: "listed_info"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "free"
+    
+  # 财报快报
+  statements:
+    enabled: true
+    method: "get_statements_range"
+    is_range: true
+    output_dir: "statements"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "free"
+    
+  # 公告
+  announcement:
+    enabled: true
+    method: "get_fins_announcement"
+    is_range: false
+    output_dir: "announcement"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "free"
+    
+  # ========== Light plan or higher ==========
+  
+  # 投资部门别
+  trades_spec:
+    enabled: true
+    method: "get_markets_trades_spec"
+    is_range: false
+    output_dir: "trades_spec"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "light"
+    
+  # TOPIX指数
+  topix:
+    enabled: true
+    method: "get_indices_topix"
+    is_range: false
+    output_dir: "topix"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "light"
+    
+  # ========== Standard plan or higher ==========
+  
+  # 日经225期权
+  index_option:
+    enabled: true
+    method: "get_index_option_range"
+    is_range: true
+    output_dir: "index_option"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "standard"
+    
+  # 信用残高（周频）
+  weekly_margin_interest:
+    enabled: true
+    method: "get_weekly_margin_range"
+    is_range: true
+    output_dir: "weekly_margin_interest"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "standard"
+    
+  # 空卖比率
+  short_selling:
+    enabled: true
+    method: "get_short_selling_range"
+    is_range: true
+    output_dir: "short_selling"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "standard"
+    
+  # 指数日行情
+  indices:
+    enabled: true
+    method: "get_indices"
+    is_range: false
+    output_dir: "indices"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "standard"
+    
+  # 空卖残高
+  short_selling_positions:
+    enabled: true
+    method: "get_markets_short_selling_positions"
+    is_range: false
+    output_dir: "short_selling_positions"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "standard"
+    
+  # ========== Premium plan or higher ==========
+  
+  # 卖买内訳
+  breakdown:
+    enabled: true
+    method: "get_breakdown_range"
+    is_range: true
+    output_dir: "breakdown"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "premium"
+    
+  # 前场行情
+  prices_am:
+    enabled: true
+    method: "get_prices_prices_am"
+    is_range: false
+    output_dir: "prices_am"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "premium"
+    
+  # 配当信息
+  dividend:
+    enabled: true
+    method: "get_dividend_range"
+    is_range: true
+    output_dir: "dividend"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "premium"
+    
+  # 财报明细
+  fs_details:
+    enabled: true
+    method: "get_fs_details_range"
+    is_range: true
+    output_dir: "fs_details"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "premium"
+    
+  # 先物行情
+  futures:
+    enabled: true
+    method: "get_derivatives_futures_range"
+    is_range: true
+    output_dir: "futures"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "premium"
+    
+  # 期权行情
+  options:
+    enabled: true
+    method: "get_derivatives_options_range"
+    is_range: true
+    output_dir: "options"
+    file_pattern: "{date}.parquet"
+    retry_count: 3
+    retry_delay: 5
+    plan_required: "premium"
+    
+  # ========== 静态数据 ==========
+  
+  # 市场区分
+  market_segments:
+    enabled: true
+    method: "get_market_segments"
+    is_range: false
+    output_dir: "static"
+    file_pattern: "market_segments.parquet"
+    retry_count: 3
+    retry_delay: 5
+    is_static: true
+    
+  # 17业种分类
+  sectors_17:
+    enabled: true
+    method: "get_17_sectors"
+    is_range: false
+    output_dir: "static"
+    file_pattern: "sectors_17.parquet"
+    retry_count: 3
+    retry_delay: 5
+    is_static: true
+    
+  # 33业种分类
+  sectors_33:
+    enabled: true
+    method: "get_33_sectors"
+    is_range: false
+    output_dir: "static"
+    file_pattern: "sectors_33.parquet"
+    retry_count: 3
+    retry_delay: 5
+    is_static: true
+    
+  # 上市公司列表
+  # listed_companies:
+  #   enabled: true
+  #   method: "get_list"
+  #   is_range: false
+  #   output_dir: "static"
+  #   file_pattern: "listed_companies.parquet"
+  #   retry_count: 3
+  #   retry_delay: 5
+  #   is_static: true
+
+# 全局配置
+global:
+  max_workers: 3  # 并发数
+  timeout: 300    # 超时时间(秒)
+  chunk_size: 1000  # 数据分块大小
+  user_plan: "premium"  # 用户计划等级：free, light, standard, premium 

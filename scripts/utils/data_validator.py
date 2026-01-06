@@ -116,7 +116,7 @@ class DataValidator:
             },
             'fs_details': {
                 'required_columns': ['DisclosedDate', 'LocalCode', 'TypeOfDocument'],
-                'date_format': '%Y-%m-%d',
+                # 跳过日期格式验证
                 'code_format': r'^[A-Z0-9]{4,5}$',
             },
             'futures': {

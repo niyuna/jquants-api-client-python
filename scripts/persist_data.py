@@ -4,14 +4,23 @@ J-Quants API 数据持久化脚本
 支持指定日期拉取、配置化API选择、断点续传
 """
 
+import warnings
 import argparse
 import logging
 from datetime import datetime, date
 from pathlib import Path
 import yaml
+import sys
 
-from utils.data_persister import DataPersister
-from utils.logger import setup_logger
+# 抑制pandas FutureWarning关于DataFrame连接的警告
+warnings.filterwarnings("ignore", category=FutureWarning, 
+                       message=".*DataFrame concatenation with empty or all-NA entries.*")
+
+# 添加项目根目录到路径
+sys.path.append(str(Path(__file__).parent.parent))
+
+from scripts.utils.data_persister import DataPersister
+from scripts.utils.logger import setup_logger
 
 def parse_args():
     parser = argparse.ArgumentParser(description='J-Quants API 数据持久化')
