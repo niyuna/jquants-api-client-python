@@ -62,6 +62,15 @@ def persist_date_range_worker(args: Tuple[str, str, dict]) -> Tuple[str, str, bo
         return start_date, end_date, False, str(e)
 
 
+def get_default_date_range(days: int = 7) -> Tuple[str, str]:
+    """获取默认日期范围：从昨天往前推指定天数"""
+    today = datetime.now()
+    yesterday = today - timedelta(days=1)
+    start_date = yesterday - timedelta(days=days-1)  # 往前推days-1天，总共days天（包括昨天）
+    
+    return start_date.strftime('%Y%m%d'), yesterday.strftime('%Y%m%d')
+
+
 def chunk_date_range(start_date: str, end_date: str, chunk_size: int = 7) -> List[Tuple[str, str]]:
     """将日期范围分割成小块，避免单次请求过大"""
     try:
@@ -89,14 +98,14 @@ def main():
     parser.add_argument(
         '--start-date',
         type=str,
-        required=True,
-        help='开始日期 (YYYYMMDD格式)'
+        default=None,
+        help='开始日期 (YYYYMMDD格式，默认：从昨天往前推7天)'
     )
     parser.add_argument(
         '--end-date',
         type=str,
-        required=True,
-        help='结束日期 (YYYYMMDD格式)'
+        default=None,
+        help='结束日期 (YYYYMMDD格式，默认：昨天)'
     )
     parser.add_argument(
         '--config',
@@ -139,6 +148,14 @@ def main():
     )
     
     args = parser.parse_args()
+    
+    # 如果没有提供日期参数，使用默认值（从昨天往前推7天）
+    if args.start_date is None or args.end_date is None:
+        default_start, default_end = get_default_date_range(days=7)
+        if args.start_date is None:
+            args.start_date = default_start
+        if args.end_date is None:
+            args.end_date = default_end
     
     # 设置日志
     logger = setup_logger()
